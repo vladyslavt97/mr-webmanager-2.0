@@ -45,7 +45,7 @@ export default function Concerts() {
                 </h5>
                 
                 <div className='flex flex-row justify-end'>
-                    <Edit id={concert._id}/>&nbsp;&nbsp;&nbsp;<Delete id={concert._id}/>
+                    <Edit concerts={concerts} id={concert._id}/>&nbsp;&nbsp;&nbsp;<Delete id={concert._id}/>
                 </div>
             </div>
           ))}

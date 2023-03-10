@@ -1,7 +1,8 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {AiFillEdit} from "react-icons/ai"
 type Props = {
     id: string
+    concerts: object
 }
 
 interface ConcertType {
@@ -15,6 +16,7 @@ interface ConcertType {
 
 export default function Edit(props: Props) {
     const [open, openEditMode] = useState(false);
+    const [updated, setUpdated] = useState(true);
 
     const [date, setDate] = useState("");
     const [viola, setViola] = useState("");
@@ -41,9 +43,20 @@ export default function Edit(props: Props) {
         } catch (error) {
         console.error('Error fetching user data:', error);
         }
-
+        // openEditMode(!open);
+        // setUpdated(true)
     }
 
+    // useEffect(()=>{
+    //   fetch('/api/get-changes')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log('data from changes', data);
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+    // },[updated])
 
   return (
     <div>

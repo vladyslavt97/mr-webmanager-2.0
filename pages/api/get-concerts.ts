@@ -8,7 +8,6 @@ export default async function handler(
     try {
        const client = await clientPromise;
        const db = client.db("Maxim_Rysanov"); //db name
-
        const concerts = await db
            .collection("concerts-2023")//collection name
            .find({})//gives everything
