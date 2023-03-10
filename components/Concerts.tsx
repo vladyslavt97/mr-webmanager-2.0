@@ -28,13 +28,12 @@ export default function Concerts() {
         fetch('/api/get-concerts')
         .then(response => response.json())
         .then(data => {
-            // console.log('data from get-concerts', data);
             setConcerts(data)
         })
         .catch(error => {
             console.error(error);
         });
-    }, []);
+    }, [setConcerts]);
     
   return (
     <div className='flex justify-center flex-col items-center'>      
@@ -53,7 +52,7 @@ export default function Concerts() {
                 </h5>
                 
                 <div className='flex flex-row justify-end'>
-                    <Edit id={concert._id}/>&nbsp;&nbsp;&nbsp;<Delete id={concert._id}/>
+                    <Edit id={concert._id} concert={concert}/>&nbsp;&nbsp;&nbsp;<Delete id={concert._id}/>
                 </div>
             </div>
           ))}

@@ -7,13 +7,8 @@ export default async function handler(
 ) {
     try {
        const client = await clientPromise;
-       const db = client.db("Maxim_Rysanov"); //db name
-       const concerts = await db
-           .collection("concerts-2023")//collection name
-           .find({})//gives everything
-           .sort({ metacritic: -1 })
-           .toArray();//returns json
-        
+       const db = client.db("Maxim_Rysanov");
+       const concerts = await db.collection("concerts-2023").find({}).sort({ metacritic: -1 }).toArray();
        res.json(concerts)
    } catch (e) {
        console.error(e);

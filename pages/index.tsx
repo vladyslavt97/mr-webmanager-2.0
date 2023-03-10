@@ -32,8 +32,6 @@ import { useEffect, useState } from 'react'
 
 // export default function Home(updatedDoc: InferGetServerSidePropsType<typeof getServerSideProps>) {
 export default function Home() {
-  // console.log('props', updatedDoc);
-  
   return (
     <>
       <Head>

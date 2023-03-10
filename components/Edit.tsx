@@ -5,7 +5,8 @@ import {AiFillEdit} from "react-icons/ai"
 import { useStore } from "./State";
 
 type Props = {
-    id: string
+    id: string,
+    concert: ConcertType
 }
 
 interface ConcertType {
@@ -28,7 +29,7 @@ export default function Edit(props: Props) {
 
     const [open, openEditMode] = useState(false);
     const [updated, setUpdated] = useState(true);
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(props.concert.date);
     const [viola, setViola] = useState("");
     const [conductor, setConductor] = useState("");
     const [location, setLocation] = useState("");
