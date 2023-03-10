@@ -2,10 +2,38 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Header from '@/components/Header'
 import Concerts from '@/components/Concerts'
+import clientPromise from '../lib/mongodb'
+import { InferGetServerSidePropsType } from 'next'
 
-const inter = Inter({ subsets: ['latin'] })
+export async function getServerSideProps() {
+    try {
+      const client = await clientPromise;
+      const db = client.db("Maxim_Rysanov"); //db name
 
-export default function Home() {
+      const changeStream = await db.collection("concerts-2023").watch();
+
+      let props = { updatedDoc: null };
+      changeStream.on('change', (change: any)=> {
+        console.log(change);
+        
+        if (change.operationType === "update" || change.operationType === "insert"){
+          const updatedDoc = change.updateDescription;
+              props = { updatedDoc: JSON.parse(JSON.stringify(updatedDoc)) };
+              console.log('the log', props);
+              
+        } else {
+          return;
+        }
+      })
+      return {props}
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export default function Home(updatedDoc: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log('props', updatedDoc);
+  
   return (
     <>
       <Head>

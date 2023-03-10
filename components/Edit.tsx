@@ -1,11 +1,11 @@
+"use client"
+
 import { FormEvent, useEffect, useState } from "react";
 import {AiFillEdit} from "react-icons/ai"
-import clientPromise from '../lib/mongodb'
-import { InferGetServerSidePropsType } from 'next'
+
 
 type Props = {
     id: string
-    concerts: object
 }
 
 interface ConcertType {
@@ -17,28 +17,13 @@ interface ConcertType {
   link: string
 }
 
-// export async function getServerSideProps() {
 
-//     try {
-//         const client = await clientPromise;
-//         const db = client.db("chess");
-
-//         const users = await db
-//             .collection("users")
-//             .find({})
-//             .sort({ metacritic: -1 })
-//             .limit(20)
-//             .toArray();
-
-//         return {
-//             props: { users: JSON.parse(JSON.stringify(users)) },
-//         };
-//     } catch (e) {
-//         console.error(e);
-//     }
-// }
-
+// export default function Edit({updatedDoc, props}: {updatedDoc: InferGetServerSidePropsType<typeof getServerSideProps>, props: Props}) {
 export default function Edit(props: Props) {
+  // console.log('updatedDoc', 
+  // // updatedDoc, 
+  // props);
+  
     const [open, openEditMode] = useState(false);
     const [updated, setUpdated] = useState(true);
 
@@ -51,8 +36,6 @@ export default function Edit(props: Props) {
 
     const updateDB = async (e: FormEvent) => {
         e.preventDefault(); 
-        console.log('prog: ', programme);
-        
         try {
       const response = await fetch('/api/edit-concert', {
       method: 'POST',
@@ -67,20 +50,8 @@ export default function Edit(props: Props) {
         } catch (error) {
         console.error('Error fetching user data:', error);
         }
-        // openEditMode(!open);
-        // setUpdated(true)
     }
 
-    // useEffect(()=>{
-    //   fetch('/api/get-changes')
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log('data from changes', data);
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-    // },[updated])
 
   return (
     <div>
