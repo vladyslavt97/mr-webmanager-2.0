@@ -17,7 +17,7 @@ export default async function handler(
        const changeStream = await db
            .collection("concerts-2023")//collection name
            .watch();
-        console.log('changes: ', changeStream);
+        // console.log('changes: ', changeStream);
         
         console.log('herer');
         
@@ -25,10 +25,10 @@ export default async function handler(
           console.log('changeee', change);
           const updatedDoc = change.updateDescription;
           console.log('ups',updatedDoc);
-          
+                 res.json(updatedDoc)
         })
         
-      //  res.json(concerts)
+
    } catch (e) {
        console.error(e);
    }
