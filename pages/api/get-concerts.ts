@@ -12,7 +12,6 @@ export default async function handler(
            .collection("concerts-2023")//collection name
            .find({})//gives everything
            .sort({ metacritic: -1 })
-           .limit(10)
            .toArray();//returns json
         
        res.json(concerts)

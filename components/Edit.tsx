@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import {AiFillEdit} from "react-icons/ai"
-
+import { useStore } from "./State";
 
 type Props = {
     id: string
@@ -17,16 +17,17 @@ interface ConcertType {
   link: string
 }
 
+interface ConcertsState {
+  concerts: Object,
+  editConcertDb: (newArr: Object) => void;
+}
 
-// export default function Edit({updatedDoc, props}: {updatedDoc: InferGetServerSidePropsType<typeof getServerSideProps>, props: Props}) {
 export default function Edit(props: Props) {
-  // console.log('updatedDoc', 
-  // // updatedDoc, 
-  // props);
-  
+    const concerts = useStore((state: ConcertsState) => state.concerts);
+    const editConcertDb = useStore((state: ConcertsState) => state.editConcertDb);
+
     const [open, openEditMode] = useState(false);
     const [updated, setUpdated] = useState(true);
-
     const [date, setDate] = useState("");
     const [viola, setViola] = useState("");
     const [conductor, setConductor] = useState("");
@@ -58,7 +59,6 @@ export default function Edit(props: Props) {
         <div onClick={()=>openEditMode(!open)}>
             <AiFillEdit color="blue"/>
         </div>
-        {/* <button onClick={updateDB}>try</button> */}
         {open && <div className="flex justify-center items-center w-[100vw] h-[100vh] absolute top-0 left-0">
             <div className="w-[100vw] h-[100vh] bg-black/80"></div>
             <div className="bg-green-900 absolute top-50 left-50 flex justify-end items-end flex-col rounded-lg">

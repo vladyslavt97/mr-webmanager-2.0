@@ -1,10 +1,18 @@
 import { BsFillTrash3Fill } from 'react-icons/bs';
+import { useStore } from './State';
+
 type Props = {
     id: string
 }
 
+interface ConcertsState {
+  removeConcert: (id: string) => void;
+}
+
 export default function Delete(props: Props) {
+  const removeConcert = useStore((state: ConcertsState) => state.removeConcert);
   const deleteId = async () => {
+    removeConcert(props.id);
     try {
       const response = await fetch('/api/delete-concert', {
       method: 'DELETE',

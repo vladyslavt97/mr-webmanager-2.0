@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Delete from './Delete';
 import Edit from './Edit';
+import { useStore } from './State';
 
 interface ConcertType {
     _id: string,
@@ -14,9 +15,15 @@ interface ConcertType {
   link: string
 }
 
-export default function Concerts() {
-    const [concerts, setConcerts] = useState([]);
+interface ConcertsState {
+  concerts: Object,
+  setConcerts: (data: Object) => void;
+}
 
+
+export default function Concerts() {
+    const concerts = useStore((state: ConcertsState) => state.concerts);
+  const setConcerts = useStore((state: ConcertsState) => state.setConcerts);
     useEffect(() => {
         fetch('/api/get-concerts')
         .then(response => response.json())
