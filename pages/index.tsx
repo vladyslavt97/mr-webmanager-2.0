@@ -4,35 +4,35 @@ import Header from '@/components/Header'
 import Concerts from '@/components/Concerts'
 import clientPromise from '../lib/mongodb'
 import { InferGetServerSidePropsType } from 'next'
+import { useEffect, useState } from 'react'
 
-export async function getServerSideProps() {
-    try {
-      const client = await clientPromise;
-      const db = client.db("Maxim_Rysanov"); //db name
+// export async function getServerSideProps() {
+//     try {
+//         const client = await clientPromise;
+//         const db = client.db("Maxim_Rysanov"); //db name
 
-      const changeStream = await db.collection("concerts-2023").watch();
+//         const changeStream = await db.collection("concerts-2023").watch();
 
-      let props = { updatedDoc: null };
-      changeStream.on('change', (change: any)=> {
-        console.log(change);
-        
-        if (change.operationType === "update" || change.operationType === "insert"){
-          const updatedDoc = change.updateDescription;
-              props = { updatedDoc: JSON.parse(JSON.stringify(updatedDoc)) };
-              console.log('the log', props);
-              
-        } else {
-          return;
-        }
-      })
-      return {props}
-    } catch (e) {
-        console.error(e);
-    }
-}
+//         let updatedDoc = null;
+//         changeStream.on('change', (change: any)=> {
+//             console.log(change);
+            
+//             if (change.operationType === "update" || change.operationType === "insert"){
+//                 const updatedDoc = JSON.parse(JSON.stringify(change.updateDescription));
+//                 console.log('the log', updatedDoc);
+//             } else {
+//                 return;
+//             }
+//         })
+//         return { props: { updatedDoc } };
+//     } catch (e) {
+//         console.error(e);
+//     }
+// }
 
-export default function Home(updatedDoc: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log('props', updatedDoc);
+// export default function Home(updatedDoc: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home() {
+  // console.log('props', updatedDoc);
   
   return (
     <>
