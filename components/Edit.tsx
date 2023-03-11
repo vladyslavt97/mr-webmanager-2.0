@@ -71,7 +71,7 @@ export default function Edit(props: Props) {
             <AiFillEdit color="blue"/>
         </div>
         {open && <div className="flex justify-center items-center w-[100vw] h-[100vh] absolute top-0 left-0">
-            <div className="w-[100vw] h-[100vh] bg-black/80"></div>
+            <div className="w-[100vw] h-[100vh] bg-black/80" onClick={()=>openEditMode(!open)}></div>
             <div className="bg-green-900 absolute top-50 left-50 flex justify-end items-end flex-col rounded-lg">
                 <button onClick={()=>openEditMode(!open)} className="pt-2 pr-2 text-red-700 font-bold z-10">X</button>
                 <form onSubmit={updateDB} className="flex flex-col z-10">
