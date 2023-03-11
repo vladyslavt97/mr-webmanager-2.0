@@ -14,7 +14,7 @@ interface ConcertType {
   viola: string,
   conductor: string,
   location: string,
-  programme: String[],
+  programme: string,
   link: string
 }
 
@@ -28,21 +28,24 @@ export default function Edit(props: Props) {
     const editConcertDb = useStore((state: ConcertsState) => state.editConcertDb);
 
     const [open, openEditMode] = useState(false);
-    const [updated, setUpdated] = useState(true);
     const [date, setDate] = useState(props.concert.date);
-    const [viola, setViola] = useState("");
-    const [conductor, setConductor] = useState("");
-    const [location, setLocation] = useState("");
-    const [programme, setProgramme] = useState("");
-    const [link, setLink] = useState("");
+    const [viola, setViola] = useState(props.concert.viola);
+    const [conductor, setConductor] = useState(props.concert.conductor);
+    const [location, setLocation] = useState(props.concert.location);
+    const [programme, setProgramme] = useState(props.concert.programme);
+    const [link, setLink] = useState(props.concert.link);
 
     const updateDB = async (e: FormEvent) => {
         e.preventDefault(); 
+        
+        let programmeArr = programme.toString().replace(/, /g, ",").split(",")
+        console.log(programmeArr);
+        
         try {
       const response = await fetch('/api/edit-concert', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({id: props.id, date: date, viola: viola, conductor: conductor, location: location, programme: programme, link: link})
+      body: JSON.stringify({id: props.id, date: date, viola: viola, conductor: conductor, location: location, programme: programmeArr, link: link})
       });
         if (!response.ok) {
           throw new Error('Network response was not ok');

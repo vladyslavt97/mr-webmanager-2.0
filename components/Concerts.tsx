@@ -23,7 +23,7 @@ interface ConcertsState {
 
 export default function Concerts() {
     const concerts = useStore((state: ConcertsState) => state.concerts);
-  const setConcerts = useStore((state: ConcertsState) => state.setConcerts);
+    const setConcerts = useStore((state: ConcertsState) => state.setConcerts);
     useEffect(() => {
         fetch('/api/get-concerts')
         .then(response => response.json())
@@ -35,7 +35,7 @@ export default function Concerts() {
         });
     }, [setConcerts]);
     
-  return (
+    return (
     <div className='flex justify-center flex-col items-center'>      
         {concerts.map((concert: ConcertType) => (
             <div key={concert._id} className="m-3">
