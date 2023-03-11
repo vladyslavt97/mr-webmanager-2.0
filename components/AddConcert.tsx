@@ -44,7 +44,7 @@ export default function AddConcert({}: Props) {
         }
         const insertedConcert = await response.json();
         const toInsert = [...concerts];
-        toInsert.push(insertedConcert.value[0])
+        toInsert.unshift(insertedConcert.value[0])
         insertConcert(toInsert);
         setOpen(false)
             return insertedConcert;
