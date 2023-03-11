@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import { useStore } from './State';
 
@@ -11,6 +12,9 @@ interface ConcertsState {
 
 export default function Delete(props: Props) {
   const removeConcert = useStore((state: ConcertsState) => state.removeConcert);
+
+  const [deleteBtnClicked, setDeleteBtnClicked] = useState(false);
+
   const deleteId = async () => {
     removeConcert(props.id);
     try {
@@ -31,6 +35,16 @@ export default function Delete(props: Props) {
     }
   } 
   return (
-    <div onClick={deleteId} className="cursor-pointer"><BsFillTrash3Fill color='red'/></div>
+    <div>
+      <div onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)} className="cursor-pointer"><BsFillTrash3Fill color='red'/></div>
+      {deleteBtnClicked && 
+        <div className="absolute top-0 left-0 w-[100vw] h-[100vh] bg-black/80 flex justify-center items-center" onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)}>
+            <div className='z-10 bg-green-100 p-10 rounded-xl flex flex-col justify-center items-center'>
+              <h1>Are you sure?</h1>
+              <button onClick={deleteId} className="bg-green-300 rounded-lg px-1 border-2 border-green-700 mt-2">Yes, delete!!!</button>
+              <button onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)} className="bg-red-300 rounded-lg px-1 border-2 border-red-700 mt-2">Cancel</button>
+            </div>
+        </div>}
+    </div>
   )
 }

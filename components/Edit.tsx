@@ -70,9 +70,9 @@ export default function Edit(props: Props) {
         <div onClick={()=>openEditMode(!open)} className="cursor-pointer">
             <AiFillEdit color="blue"/>
         </div>
-        {open && <div className="flex justify-center items-center w-[100vw] h-[100vh] absolute top-0 left-0">
+        {open && <div className="flex justify-center items-center w-[100vw] h-[100vh] fixed top-0 left-0">
             <div className="w-[100vw] h-[100vh] bg-black/80" onClick={()=>openEditMode(!open)}></div>
-            <div className="bg-green-900 absolute top-50 left-50 flex justify-end items-end flex-col rounded-lg">
+            <div className="bg-green-900 fixed top-50 left-50 flex justify-end items-end flex-col rounded-lg">
                 <button onClick={()=>openEditMode(!open)} className="pt-2 pr-2 text-red-700 font-bold z-10">X</button>
                 <form onSubmit={updateDB} className="flex flex-col z-10">
                     <input className="editinputs" type="text" onChange={e=>setDate(e.target.value)} value={date} placeholder="date"/>
