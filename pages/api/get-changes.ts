@@ -11,23 +11,19 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   try {
-      //  const client = await clientPromise;
-      //  const db = client.db("Maxim_Rysanov"); //db name
-
-      //  const changeStream = await db
-      //      .collection("concerts-2023")//collection name
-      //      .watch();
-      //   // console.log('changes: ', changeStream);
-        
-      //   console.log('herer');
-        
-      //   changeStream.on('change', (change: any)=> {
-      //     console.log('changeee', change);
-      //     const updatedDoc = change.updateDescription;
-      //     console.log('ups',updatedDoc);
-      //            res.json(updatedDoc)
-      //   })
-        
+    console.log('dfd');
+    const client = await clientPromise;
+    const db = client.db("Maxim_Rysanov"); //db name
+    const changeStream = await db.collection("concerts-2023").watch();
+    console.log('herer');
+    
+    changeStream.on('change', (change: any)=> {
+      console.log('changeee', change);
+      const updatedDoc = change.updateDescription;
+      console.log('ups',updatedDoc);
+              res.json(updatedDoc)
+    })
+    
 
    } catch (e) {
        console.error(e);

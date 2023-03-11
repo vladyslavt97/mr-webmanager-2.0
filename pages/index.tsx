@@ -5,33 +5,48 @@ import Concerts from '@/components/Concerts'
 import clientPromise from '../lib/mongodb'
 import { InferGetServerSidePropsType } from 'next'
 import { useEffect, useState } from 'react'
+import { pusher } from '@/lib/pusher'
+import Pusher from 'pusher-js'
+// import Pusher from 'pusher'
 
-// export async function getServerSideProps() {
-//     try {
-//         const client = await clientPromise;
-//         const db = client.db("Maxim_Rysanov"); //db name
+export async function getServerSideProps() {
+    try {
+        const client = await clientPromise;
+        const db = client.db("Maxim_Rysanov"); //db name
 
-//         const changeStream = await db.collection("concerts-2023").watch();
+        const changeStream = await db.collection("concerts-2023").watch();
 
-//         let updatedDoc = null;
-//         changeStream.on('change', (change: any)=> {
-//             console.log(change);
+        let updatedDoc = null;
+        changeStream.on('change', (change: any)=> {
+            console.log('changechange',change);
+            pusher.trigger("my-channel", "my-event", {
+              message: "hello world"
+            });
             
-//             if (change.operationType === "update" || change.operationType === "insert"){
-//                 const updatedDoc = JSON.parse(JSON.stringify(change.updateDescription));
-//                 console.log('the log', updatedDoc);
-//             } else {
-//                 return;
-//             }
-//         })
-//         return { props: { updatedDoc } };
-//     } catch (e) {
-//         console.error(e);
-//     }
-// }
+            if (change.operationType === "update" || change.operationType === "insert"){
+                const updatedDoc = JSON.parse(JSON.stringify(change.updateDescription));
+                console.log('the log', updatedDoc);
+            } else {
+                return;
+            }
+        })
+        return { props: { updatedDoc } };
+    } catch (e) {
+        console.error(e);
+    }
+}
 
-// export default function Home(updatedDoc: InferGetServerSidePropsType<typeof getServerSideProps>) {
-export default function Home() {
+export default function Home(updatedDoc: InferGetServerSidePropsType<typeof getServerSideProps>) {
+// export default function Home() {
+  var pusher = new Pusher(process.env.NEXT_PUBLIC_KEY!, {
+      cluster: 'eu'
+    });
+  var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data: any) {
+      console.log(data);
+      
+      // alert(JSON.stringify(data));
+    });
   return (
     <>
       <Head>
