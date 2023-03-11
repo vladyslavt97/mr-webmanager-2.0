@@ -36,14 +36,14 @@ export default function Concerts() {
     }, [setConcerts]);
     
     return (
-    <div className='flex justify-center flex-col items-center'>      
+    <div className='flex justify-center flex-col items-start sm:mx-[30%] mx-5 my-5'>      
         {concerts.map((concert: ConcertType) => (
             <div key={concert._id} className="m-3">
                 <div className='flex flex-row'>
                     <h2 className=' font-semibold'>{concert.date}</h2>&nbsp;{concert.viola !== "" && <h2>{concert.viola}</h2>}&nbsp;{concert.conductor !== "" && <h2>{concert.conductor}</h2>}
                 </div>
                 <h5>{concert.location}<br/>
-                {concert.programme.map((prog, ind)=>(
+                {concert.programme[0] !== "" && concert.programme.map((prog, ind)=>(
                     <div key={ind}>
                     <p>♪ {prog}</p>
                     </div>
@@ -51,7 +51,7 @@ export default function Concerts() {
                 {concert.link && <a href={concert.link}><h4 className='italic underline'>more details</h4></a>}
                 </h5>
                 
-                <div className='flex flex-row justify-end'>
+                <div className='flex flex-row justify-end my-5'>
                     <Edit id={concert._id} concert={concert}/>&nbsp;&nbsp;&nbsp;<Delete id={concert._id}/>
                 </div>
             </div>

@@ -24,11 +24,13 @@ interface ConcertsState {
 }
 
 export default function Edit(props: Props) {
+    const concerts = useStore((state: ConcertsState) => state.concerts);
     const editConcertDb = useStore((state: ConcertsState) => state.editConcertDb);
 
     let prog = props.concert.programme.toString();
 
     const [open, openEditMode] = useState(false);
+
     const [date, setDate] = useState(props.concert.date);
     const [viola, setViola] = useState(props.concert.viola);
     const [conductor, setConductor] = useState(props.concert.conductor);
@@ -40,7 +42,6 @@ export default function Edit(props: Props) {
         e.preventDefault(); 
         
         let programmeArr = programme.toString().replace(/, /g, ",").split(",")
-        console.log(programmeArr);
         
         try {
       const response = await fetch('/api/edit-concert', {
@@ -52,6 +53,11 @@ export default function Edit(props: Props) {
           throw new Error('Network response was not ok');
         }
         const userData = await response.json();
+        let index = concerts.findIndex((el:any)=>el._id === userData.value._id)
+        const newConcerts = [...concerts];
+        newConcerts[index] = userData.value;
+        editConcertDb(newConcerts);
+        openEditMode(false)
             return userData;
         } catch (error) {
         console.error('Error fetching user data:', error);
@@ -75,7 +81,7 @@ export default function Edit(props: Props) {
                     <input className="editinputs" type="text" onChange={e=>setLocation(e.target.value)} value={location} placeholder="location"/>
                     <input className="editinputs" type="text" onChange={e=>setLink(e.target.value)} value={link} placeholder="link"/>
                     <textarea className="editinputs h-60" onChange={e=>setProgramme(e.target.value)} value={programme} placeholder="programme"/>
-                    <button className="bg-green-300 rounded-lg border-2 border-green-700">update</button>
+                    <button className="bg-green-300 rounded-lg border-2 border-green-700 ">update</button>
                 </form>
             </div>
             </div>}
