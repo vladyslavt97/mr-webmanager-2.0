@@ -1,16 +1,9 @@
 import { FormEvent, useState } from "react"
 import { useStore } from "./State";
+import {IoIosAddCircleOutline} from "react-icons/io"
 
 type Props = {}
 
-// interface ConcertType {
-//   date: string,
-//   viola: string,
-//   conductor: string,
-//   location: string,
-//   programme: String[],
-//   link: string
-// }
 interface ConcertsState {
   concerts: Object,
   insertConcert: (newArr: Object) => void;
@@ -55,8 +48,11 @@ export default function AddConcert({}: Props) {
 
   return (
     <div>
-        <button className='m-2 px-4 py-2 rounded-lg border-2 border-blue-400 bg-blue-200 font-bold drop-shadow-lg'
-        onClick={()=>setOpen(!open)}>Add a new concert</button>
+        <div className='m-2 px-4 py-2 rounded-lg bg-gradient-to-l from-cyan-400 to-blue-300 font-bold drop-shadow-lg flex flex-row justify-around'
+          onClick={()=>setOpen(!open)}>
+          <button >Add a new concert</button>
+          <IoIosAddCircleOutline size={50}/>
+        </div>
         {open && <div className="flex justify-center items-center w-[100vw] h-[100vh] fixed top-0 left-0 z-10">
             <div className="w-[100vw] h-[100vh] bg-black/80" onClick={()=>setOpen(!open)}></div>
             <div className="bg-green-900 fixed top-50 left-50 flex justify-end items-end flex-col rounded-lg">
