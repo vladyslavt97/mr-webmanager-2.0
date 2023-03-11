@@ -14,7 +14,7 @@ interface ConcertType {
   viola: string,
   conductor: string,
   location: string,
-  programme: string,
+  programme: String[],
   link: string
 }
 
@@ -24,15 +24,16 @@ interface ConcertsState {
 }
 
 export default function Edit(props: Props) {
-    const concerts = useStore((state: ConcertsState) => state.concerts);
     const editConcertDb = useStore((state: ConcertsState) => state.editConcertDb);
+
+    let prog = props.concert.programme.toString();
 
     const [open, openEditMode] = useState(false);
     const [date, setDate] = useState(props.concert.date);
     const [viola, setViola] = useState(props.concert.viola);
     const [conductor, setConductor] = useState(props.concert.conductor);
     const [location, setLocation] = useState(props.concert.location);
-    const [programme, setProgramme] = useState(props.concert.programme);
+    const [programme, setProgramme] = useState(prog);
     const [link, setLink] = useState(props.concert.link);
 
     const updateDB = async (e: FormEvent) => {
@@ -60,7 +61,7 @@ export default function Edit(props: Props) {
 
   return (
     <div>
-        <div onClick={()=>openEditMode(!open)}>
+        <div onClick={()=>openEditMode(!open)} className="cursor-pointer">
             <AiFillEdit color="blue"/>
         </div>
         {open && <div className="flex justify-center items-center w-[100vw] h-[100vh] absolute top-0 left-0">
@@ -73,7 +74,7 @@ export default function Edit(props: Props) {
                     <input className="editinputs" type="text" onChange={e=>setConductor(e.target.value)} value={conductor} placeholder="conductor"/>
                     <input className="editinputs" type="text" onChange={e=>setLocation(e.target.value)} value={location} placeholder="location"/>
                     <input className="editinputs" type="text" onChange={e=>setLink(e.target.value)} value={link} placeholder="link"/>
-                    <input className="editinputs" type="text" onChange={e=>setProgramme(e.target.value)} value={programme} placeholder="programme"/>
+                    <textarea className="editinputs h-60" onChange={e=>setProgramme(e.target.value)} value={programme} placeholder="programme"/>
                     <button className="bg-green-300 rounded-lg border-2 border-green-700">update</button>
                 </form>
             </div>
