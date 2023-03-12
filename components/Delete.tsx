@@ -36,7 +36,7 @@ export default function Delete(props: Props) {
   } 
   return (
     <div>
-      <div onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)} className="cursor-pointer"><BsFillTrash3Fill color='red'/></div>
+      <div onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)} className="cursor-pointer"><BsFillTrash3Fill className=' fill-gray-400'/></div>
       {deleteBtnClicked && 
         <div className="absolute top-0 left-0 w-[100vw] h-[100vh] bg-black/80 flex justify-center items-center" onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)}>
             <div className='z-10 bg-green-100 p-10 rounded-xl flex flex-col justify-center items-center'>

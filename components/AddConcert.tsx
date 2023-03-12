@@ -48,10 +48,10 @@ export default function AddConcert({}: Props) {
 
   return (
     <div>
-        <div className='m-2 px-4 py-2 rounded-lg bg-gradient-to-l from-cyan-400 to-blue-300 font-bold drop-shadow-lg flex flex-row justify-around'
+        <div className='m-2 px-4 rounded-lg bg-gradient-to-l from-cyan-400 to-blue-300 font-bold drop-shadow-lg flex flex-row justify-around'
           onClick={()=>setOpen(!open)}>
           <button >Add a new concert</button>
-          <IoIosAddCircleOutline size={50}/>
+          <IoIosAddCircleOutline size={40} className="p-0 m-0"/>
         </div>
         {open && <div className="flex justify-center items-center w-[100vw] h-[100vh] fixed top-0 left-0 z-10">
             <div className="w-[100vw] h-[100vh] bg-black/80" onClick={()=>setOpen(!open)}></div>

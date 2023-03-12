@@ -68,7 +68,7 @@ export default function Edit(props: Props) {
   return (
     <div>
         <div onClick={()=>openEditMode(!open)} className="cursor-pointer">
-            <AiFillEdit color="blue"/>
+            <AiFillEdit className=' fill-blue-800'/>
         </div>
         {open && <div className="flex justify-center items-center w-[100vw] h-[100vh] fixed top-0 left-0">
             <div className="w-[100vw] h-[100vh] bg-black/80" onClick={()=>openEditMode(!open)}></div>
