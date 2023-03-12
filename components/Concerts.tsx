@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Delete from './Delete';
 import Edit from './Edit';
 import { useStore } from './State';
+import { Watch } from  'react-loader-spinner'
 
 interface ConcertType {
     _id: string,
@@ -36,7 +37,20 @@ export default function Concerts() {
     }, [setConcerts]);
     
     return (
-    <div className='flex justify-center flex-col items-start sm:mx-[30%] mx-5 my-5'>      
+    <div className='flex justify-center flex-col items-start sm:mx-[30%] mx-5 my-5'> 
+        {concerts.length === 0 && 
+        <div className='flex items-center justify-center w-full h-full'>
+            <Watch
+            height="80"
+            width="80"
+            radius="48"
+            color="gray"
+            ariaLabel="watch-loading"
+            wrapperStyle={{}}
+            visible={true}
+            />
+        </div>
+        }     
         {concerts.map((concert: ConcertType) => (
             <div key={concert._id} className="m-3">
                 <div className='flex flex-row'>
