@@ -41,8 +41,8 @@ export default function Delete(props: Props) {
         <div className="absolute top-0 left-0 w-[100vw] h-[100vh] bg-black/80 flex justify-center items-center" onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)}>
             <div className='z-10 bg-green-100 p-10 rounded-xl flex flex-col justify-center items-center'>
               <h1>Are you sure?</h1>
-              <button onClick={deleteId} className="bg-green-300 rounded-lg px-1 border-2 border-green-700 mt-2">Yes, delete!!!</button>
-              <button onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)} className="bg-red-300 rounded-lg px-1 border-2 border-red-700 mt-2">Cancel</button>
+              <button onClick={deleteId} className="bg-gradient-to-r from-green-400 to-blue-300 rounded-lg px-1 mt-2 font-medium">Yes, delete!!!</button>
+              <button onClick={()=>setDeleteBtnClicked(!deleteBtnClicked)} className="bg-gradient-to-r from-red-500 to-red-300 rounded-lg px-1 mt-2 text-gray-100">Cancel</button>
             </div>
         </div>}
     </div>
